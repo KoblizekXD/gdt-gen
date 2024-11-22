@@ -1,0 +1,5 @@
+---
+const { url, className } = Astro.props;
+---
+
+<a href={url} class={`underline font-bold ${className}`}><slot /></a>

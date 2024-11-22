@@ -1,16 +1,27 @@
 ---
-
+import "@fontsource-variable/jetbrains-mono";
+import Link from "../components/link.astro";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>GDT Entry generator</title>
+  </head>
+  <body class="bg-[#1E1E2E] flex flex-col text-white font-mono">
+    <div class="mt-32 flex flex-col justify-center items-center gap-y-4">
+      <h1 class="font-extrabold text-5xl">GDT Entry generator</h1>
+      <h2 class="text-xl text-center">
+        Beginner into OS development? We have a tool for you!<br />
+        Generate your ✨ 
+        <Link url="https://wiki.osdev.org/Global_Descriptor_Table" className='text-purple-400'>GDT</Link>
+        /
+        <Link url="https://wiki.osdev.org/Interrupt_Descriptor_Table" className='text-pink-400'>IDT</Link>
+        entries with ease.
+      </h2>
+    </div>
+  </body>
 </html>
