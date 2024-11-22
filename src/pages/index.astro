@@ -1,6 +1,7 @@
 ---
 import "@fontsource-variable/jetbrains-mono";
 import Link from "../components/link.astro";
+import Button from "../components/button.astro";
 ---
 
 <html lang="en">
@@ -11,7 +12,7 @@ import Link from "../components/link.astro";
     <meta name="generator" content={Astro.generator} />
     <title>GDT Entry generator</title>
   </head>
-  <body class="bg-[#1E1E2E] flex flex-col text-white font-mono">
+  <body class="bg-[#1E1E2E] flex flex-col text-zinc-200 gap-y-8 font-mono">
     <div class="mt-32 flex flex-col justify-center items-center gap-y-4">
       <h1 class="font-extrabold text-5xl">GDT Entry generator</h1>
       <h2 class="text-xl text-center">
@@ -23,5 +24,11 @@ import Link from "../components/link.astro";
         entries with ease.
       </h2>
     </div>
+    <h3 class="text-xl text-center font-bold text-teal-400">1) I want to create...</h3>
+    <div class="flex items-center justify-center gap-x-8">
+      <Button>GDT Entry</Button>
+      <Button>IDT Entry</Button>
+    </div>
+    <h3 class="text-xl text-center font-bold text-teal-400">2) Containing...</h3>
   </body>
 </html>

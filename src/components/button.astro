@@ -1,0 +1,19 @@
+---
+const { onClick, active } = Astro.props;
+---
+
+<button class={`border-2 super-button rounded px-6 py-1 font-bold`}><slot /></button>
+
+<script is:inline define:vars={{onClick, active}}>
+  const clickHandler = (e) => {
+    for (const button of document.querySelectorAll('.super-button')) {
+      button.classList.remove('bg-indigo-600');
+    }
+    e.target.classList.add('bg-indigo-600');    
+    onClick?.();
+  }
+
+  document.querySelectorAll('.super-button').forEach((button) => {
+    button.addEventListener('click', clickHandler);
+  });
+</script>
