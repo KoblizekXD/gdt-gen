@@ -61,7 +61,7 @@ export type GDTFormChange = (data: GDTEntryData) => void;
       </label>
     </div>
     <label>
-      Ring
+      <Tooltip tooltip="Usually: 0=Kernel, 1-2=Drivers, 3=User Mode">Ring</Tooltip>
       <select name="ring">
         <option>0</option>
         <option>1</option>
@@ -103,7 +103,7 @@ gdt_entry_t entry = (gdt_entry_t) &#123;
     let original = codeblock.innerHTML;
     keywords.forEach((keyword) => {
       const regex = new RegExp(`\\b(${keyword})\\b`, 'gi');
-      original = original.replace(regex, `<span class="text-[#5070E3]">$1</span>`);
+      original = original.replace(regex, `<span class="text-[#6DB2FA]">$1</span>`);
     });
     codeblock.innerHTML = original;
   }

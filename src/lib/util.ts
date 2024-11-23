@@ -49,13 +49,15 @@ export function formDataToIf(formData: FormData): GDTEntryData {
 }
 
 export function writeData(gdt: GDTEntryData): string {
+  console.log(gdt.flags.toString(2));
+  
   return `
   gdt_entry_t gdt_entry = (gdt_entry_t) {
       .limit_low = 0x${gdt.limitLow.toString(16)},
       .base_low = 0x${gdt.baseLow.toString(16)},
       .base_middle = 0x${gdt.baseMid.toString(16)},
       .access = 0b${gdt.access.toString(2)},
-      .granularity = 0b${((gdt.limitMid << 4) | gdt.flags).toString(2)},
+      .granularity = 0b${((gdt.flags << 3) | (gdt.limitMid)).toString(2)},
       .base_middle2 = 0x${gdt.baseMidder.toString(16)},
       .base_high = 0x${gdt.baseHigh.toString(16)}${gdt.flags & 0b0010 ? ',\n      .reserved = 0x0' : ''}
   };
