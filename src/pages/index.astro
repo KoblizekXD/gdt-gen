@@ -2,7 +2,6 @@
 import "@fontsource-variable/jetbrains-mono";
 import Link from "../components/link.astro";
 import Button from "../components/button.astro";
-import GdtEntryGenerator from "../components/GdtEntryGenerator.astro";
 ---
 
 <html lang="en">
@@ -13,7 +12,7 @@ import GdtEntryGenerator from "../components/GdtEntryGenerator.astro";
     <meta name="generator" content={Astro.generator} />
     <title>GDT Entry generator</title>
   </head>
-  <body class="bg-[#1E1E2E] flex flex-col pb-32 items-center text-zinc-200 gap-y-8 font-mono">
+  <body class="bg-[#1E1E2E] h-screen flex flex-col pb-32 items-center text-zinc-200 gap-y-8 font-mono">
     <div class="mt-32 flex flex-col justify-center items-center gap-y-4">
       <h1 class="font-extrabold text-5xl">GDT Entry generator</h1>
       <h2 class="text-xl text-center">
@@ -27,10 +26,8 @@ import GdtEntryGenerator from "../components/GdtEntryGenerator.astro";
     </div>
     <h3 class="text-xl text-center font-bold text-teal-400">1) I want to create...</h3>
     <div class="flex items-center justify-center gap-x-8">
-      <Button>GDT Entry</Button>
-      <Button>IDT Entry</Button>
+      <Button onClick={() => window.location.href="/gdt"}>GDT Entry</Button>
+      <Button onClick={() => window.location.href="/idt"}>IDT Entry</Button>
     </div>
-    <h3 class="text-xl text-center font-bold text-teal-400">2) Containing...</h3>
-    <GdtEntryGenerator />
   </body>
 </html>

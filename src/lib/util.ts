@@ -4,13 +4,14 @@ export function formDataToIf(formData: FormData): GDTEntryData {
   const isLongMode = formData.get('isLongMode') === 'on';
   const page = formData.get('usePaging') === 'on';
   const mode = formData.get('mode') as '16-bit selector' | '32-bit selector';
+  
   return {
-    limitLow: isLongMode ? 0xFFFF : parseInt(formData.get("limit") as string) & 0xFFFF,
-    limitMid: isLongMode ? 0xF : (parseInt(formData.get("limit") as string) >> 16) & 0xF,
-    baseLow: isLongMode ? 0x0 : parseInt(formData.get("limit") as string) & 0xFFFF,
-    baseMid: isLongMode ? 0x0 : (parseInt(formData.get("base") as string) >> 16) & 0xFF,
-    baseMidder: isLongMode ? 0x0 : (parseInt(formData.get("base") as string) >> 24) & 0xFF,
-    baseHigh: isLongMode ? 0x0 : (parseInt(formData.get("base") as string) >> 56) & 0xFF,
+    limitLow: isLongMode ? 0xFFFF : Number(formData.get("limit")) & 0xFFFF,
+    limitMid: isLongMode ? 0xF : (Number(formData.get("limit") as string) >> 16) & 0xF,
+    baseLow: isLongMode ? 0x0 : Number(formData.get("base") as string) & 0xFFFF,
+    baseMid: isLongMode ? 0x0 : (Number(formData.get("base") as string) >> 16) & 0xFF,
+    baseMidder: isLongMode ? 0x0 : (Number(formData.get("base") as string) >> 24) & 0xFF,
+    baseHigh: isLongMode ? 0x0 : (Number(formData.get("base") as string) >> 56) & 0xFF,
     flags: (page ? 0b1000 : 0b0000) | (mode === '32-bit selector' ? 0b0100 : 0b0000) | (isLongMode ? 0b0010 : 0b0000) | 0b0001,
     access: 
     (formData.get('valid') === 'on' ? 0b10000000 : 0)
