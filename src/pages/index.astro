@@ -29,5 +29,18 @@ import Button from "../components/button.astro";
       <Button onClick={() => window.location.href="/gdt"}>GDT Entry</Button>
       <Button onClick={() => window.location.href="/idt"}>IDT Entry</Button>
     </div>
+    <h3 class="font-bold text-xl text-lime-500">### What is a GDT?</h3>
+    <p class="w-1/2">
+      The Global Descriptor Table (GDT) is a data structure used by Intel x86-family processors in order to define the characteristics of the various memory areas used during kernel execution, including the base address, the size, and access privileges like executability and writability. These memory areas are called segments in Intel terminology.
+      Initialisation of the GDT might be a bit tricky for beginners, so I have created this tool to help you generate GDT entries with ease.
+    </p>
+    <h3 class="font-bold text-xl text-lime-500">### What is an IDT?</h3>
+    <p class="w-1/2">
+      The Interrupt Descriptor Table (IDT) is a data structure used by the x86 architecture to implement an interrupt vector table. The IDT is used by the processor to determine the correct response to interrupts and exceptions. It is a part of the x86 architecture's interrupt and exception handling mechanism.
+    </p>
+    <footer>
+      <p class="text-center">Made with ❤️ by <a class="underline" href="https://www.github.com/KoblizekXD">AA55h</a></p>
+      <a class="underline" href="https://www.github.com/KoblizekXD/gdt-gen">Source code available here</a>
+    </footer>
   </body>
 </html>
