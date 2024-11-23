@@ -1,11 +1,27 @@
 ---
+import Tooltip from "./tooltip.astro";
 
+export interface GDTEntryData {
+  longMode: boolean;
+  base: number;
+  limit: number;
+  rw: boolean;
+  conforming: boolean;
+  isCodeSegment: boolean;
+  isDataOrCodeSegment: boolean;
+  ring: number;
+  valid: boolean;
+  size: 16 | 32;
+  usePaging: boolean;
+}
+
+export type GDTFormChange = (data: GDTEntryData) => void;
 ---
 
-<div class={`border-2 rounded p-4 flex flex-col border-gray-500 w-1/3`}>
-  <form class="flex select-none flex-col gap-y-4">
+<div class={`border-2 rounded p-4 flex flex-col gap-y-4 border-gray-500 w-1/3`}>
+  <form id="gdtEntryForm" class="flex select-none flex-col gap-y-4">
     <label>
-      <h3>I'm in <strong class='text-orange-600'>64-bit</strong> mode</h3>
+      <Tooltip tooltip="This segment is in long(64bit) mode"><h3>I'm in <strong class='text-orange-600'>64-bit</strong> mode</h3></Tooltip>
       <input id="longMode" type="checkbox">
     </label>
     <label>
@@ -30,7 +46,7 @@
       <input id="rw" type="checkbox">
     </label>
     <label>
-      Is data or code segment?
+      <Tooltip tooltip="Keep unchecked if is TSS">Is data or code segment?</Tooltip>
       <input id="rw" type="checkbox">
     </label>
     <label>
@@ -49,35 +65,50 @@
     <h3 class="font-bold text-lime-500">2. Flags</h3>
     <label>
       Size
-      <select>
+      <select class="non64">
         <option>16-bit selector</option>
         <option>32-bit selector</option>
       </select>
     </label>
     <label>
-      Use paging?
+      <Tooltip tooltip="Use 4KiB Paging">Use paging?</Tooltip>
       <input id="usePaging" type="checkbox">
     </label>
   </form>
+  <pre class={'border rounded bg-[#181825] codeblock'}>
+    gdt_entry_t entry = (gdt_entry_t) &#123;
+    &#125;;</pre>
 </div>
 
-<script is:inline>
+<script>
+  export const keywords = ['uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'gdt_entry_t'];
+
   let longMode = false;
   document.addEventListener("DOMContentLoaded", () => {
-    const longModeCheckbox = document.getElementById('longMode');
-    const non64 = document.querySelectorAll('.non64');
+    const longModeCheckbox = document.getElementById('longMode')!!;
+    const non64 = document.querySelectorAll('.non64')!!;
     
-    longModeCheckbox.addEventListener('change', (e) => {
+    longModeCheckbox.addEventListener('change', (e: any) => {
       longMode = e.target.checked;
-      non64.forEach((el) => {
+      non64.forEach((el: any) => {
         el.disabled = longMode;
       });
     });
 
-    longModeCheckbox.checked = longMode;
-    non64.forEach((el) => {
+    (longModeCheckbox as any).checked = longMode;
+    non64.forEach((el: any) => {
       el.disabled = longMode;
     });
+  });
+
+  document.getElementById('gdtEntryForm')!!.addEventListener('input', (e: any) => {
+    const codeblock = document.getElementsByClassName('codeblock')[0];
+    let original = codeblock.innerHTML;
+    keywords.forEach((keyword) => {
+      const regex = new RegExp(`\\b(${keyword})\\b`, 'gi');
+      original = original.replace(regex, `<span class="text-[#5070E3]">$1</span>`);
+    });
+    codeblock.innerHTML = original;
   });
 </script>
 
@@ -90,13 +121,14 @@
 
   label:has(input[type="checkbox"]), label:has(select) {
     display: flex;
+    align-items: center;
   }
 
   label > input[type="checkbox"], label > select {
     margin-left: auto;
   }
 
-  input[type="text"] {
+  input[type="text"], select {
     border-radius: 0.25rem;
     background-color: #181825;
     padding: 4px;

@@ -1,0 +1,32 @@
+---
+const { tooltip } = Astro.props;
+---
+
+<div class="item">
+  <div hidden class="absolute pointer-events-none border bg-black rounded p-2 tooltip">
+    {tooltip || 'Tooltip'}
+  </div>
+  <slot />
+</div>
+
+<script>
+  const items = document.querySelectorAll('.item')!!;
+  for (const i of items) {
+    const item = i as HTMLElement;
+    const tooltip = item.querySelector('.tooltip')!! as HTMLElement;
+
+    item.onmouseenter = (e) => {
+      tooltip.hidden = false;
+    }
+    item.onmouseout = (e) => {
+      tooltip.hidden = true;
+    }
+
+    item.onmousemove = (e: MouseEvent) => {
+      const offsetX = 10;
+      const offsetY = 10;
+      tooltip.style.left = `${e.pageX + offsetX}px`;
+      tooltip.style.top = `${e.pageY + offsetY}px`;
+    } 
+  }
+</script>
