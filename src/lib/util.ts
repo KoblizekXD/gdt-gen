@@ -33,8 +33,7 @@ export function writeData(gdt: GDTEntryData): string {
       .access = 0b${gdt.access.toString(2)},
       .granularity = 0b${((gdt.limitMid << 4) | gdt.flags).toString(2)},
       .base_middle2 = 0x${gdt.baseMidder.toString(16)},
-      .base_high = 0x${gdt.baseHigh.toString(16)},
-      .reserved = 0x0
+      .base_high = 0x${gdt.baseHigh.toString(16)}${gdt.flags & 0b0010 ? ',\n      .reserved = 0x0' : ''}
   };
   `.trim();
 }
