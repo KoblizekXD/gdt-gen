@@ -31,9 +31,8 @@ export function writeData(gdt: GDTEntryData): string {
       .base_low = 0x${gdt.baseLow.toString(16)},
       .base_middle = 0x${gdt.baseMid.toString(16)},
       .access = 0b${gdt.access.toString(2)},
-      .granularity = 0b${gdt.flags.toString(2)},
+      .granularity = 0b${((gdt.limitMid << 4) | gdt.flags).toString(2)},
       .base_middle2 = 0x${gdt.baseMidder.toString(16)},
-      .limit_high = 0x${gdt.limitMid.toString(16)},
       .base_high = 0x${gdt.baseHigh.toString(16)},
       .reserved = 0x0
   };

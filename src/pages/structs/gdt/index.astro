@@ -1,0 +1,35 @@
+---
+
+---
+
+<html>
+  <head></head>
+  <body class="gap-y-6 bg-[#1E1E2E] font-mono text-zinc-200 py-16 bg-gradient-to-b flex flex-col justify-center items-center">
+    <h1 class="font-bold text-4xl">You asked for it.</h1>
+    <pre class="w-1/2 py-2 px-8 border rounded border-zinc-600">
+      #include &lt;stdint.h&gt;
+
+      typedef struct _gdt_entry &#123;
+          uint16_t limit_low;
+          uint16_t base_low;
+          uint8_t base_middle;
+          uint8_t access;
+          uint8_t granularity;
+          uint8_t base_high;
+          uint32_t base_upper;
+          uint32_t reserved;
+      &#125; __attribute__((packed)) gdt_entry_t;</pre>
+  </body>
+</html>
+
+<script>
+  const keywords = ['uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'gdt_entry_t', 'typedef', 'struct', '__attribute__', 'packed', '#include', 'stdint.h'];
+
+  const codeBlock = document.querySelector('pre')!!;
+  let original = codeBlock.innerHTML;
+  keywords.forEach((keyword) => {
+    const regex = new RegExp(`\\b(${keyword})\\b`, 'gi');
+    original = original.replace(regex, `<span class="text-[#6DB2FA]">${keyword}</span>`);
+  });
+  codeBlock.innerHTML = original;
+</script>
