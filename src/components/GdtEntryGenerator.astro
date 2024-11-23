@@ -31,21 +31,35 @@ export type GDTFormChange = (data: GDTEntryData) => void;
     </label>
     <h3 class="font-bold text-lime-500">1. Access byte</h3>
     <label>
-      Readable/Writable
-      <input name="isrwable" id="rw" type="checkbox">
-    </label>
-    <label>
-      Conforming
-      <input name="conforming" id="rw" type="checkbox">
-    </label>
-    <label>
-      Is code segment?
-      <input name="isCode" id="rw" type="checkbox">
-    </label>
-    <label>
       <Tooltip tooltip="Keep unchecked if is TSS">Is data or code segment?</Tooltip>
-      <input name="isNotTSS" id="rw" type="checkbox">
+      <input name="isNotTSS" id="nonTssCb" type="checkbox">
     </label>
+    <div hidden id="nonTssOnly">
+      <label>
+        Readable/Writable
+        <input name="isrwable" id="rw" type="checkbox">
+      </label>
+      <label>
+        Conforming
+        <input name="conforming" id="rw" type="checkbox">
+      </label>
+      <label>
+        Is code segment?
+        <input name="isCode" id="rw" type="checkbox">
+      </label>
+    </div>
+    <div id="tssOnly">
+      <label>
+        System Segment Type
+        <select>
+          <option>16-bit TSS (Available)</option>
+          <option>LDT</option>
+          <option>16-bit TSS (Busy)</option>
+          <option>32-bit TSS (Available)</option>
+          <option>32-bit TSS (Busy)</option>
+        </select>
+      </label>
+    </div>
     <label>
       Ring
       <select name="ring">
@@ -117,6 +131,11 @@ gdt_entry_t entry = (gdt_entry_t) &#123;
     document.getElementById('gdtCodeBlock')!!.innerText = writeData(formDataToIf(new FormData(form)));
     recolor();
   });
+
+  document.getElementById('nonTssCb')?.addEventListener('change', (e: Event) => {
+    document.getElementById('nonTssOnly')!!.hidden = !(e.target as HTMLInputElement).checked;
+    document.getElementById('tssOnly')!!.hidden = (e.target as HTMLInputElement).checked;
+  })
 </script>
 
 <style>
