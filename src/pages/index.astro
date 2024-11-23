@@ -2,6 +2,7 @@
 import "@fontsource-variable/jetbrains-mono";
 import Link from "../components/link.astro";
 import Button from "../components/button.astro";
+import Tooltip from "../components/tooltip.astro";
 ---
 
 <html lang="en">
@@ -27,7 +28,9 @@ import Button from "../components/button.astro";
     <h3 class="text-xl text-center font-bold text-teal-400">1) I want to create...</h3>
     <div class="flex items-center justify-center gap-x-8">
       <Button onClick={() => window.location.href="/gdt"}>GDT Entry</Button>
-      <Button onClick={() => window.location.href="/idt"}>IDT Entry</Button>
+      <Button onClick={() => {}}>
+        <Tooltip tooltip="Well, I haven't added this yet!"><span class='line-through'>IDT Entry</span></Tooltip>
+      </Button>
     </div>
     <h3 class="font-bold text-xl text-lime-500">### What is a GDT?</h3>
     <p class="w-1/2">
